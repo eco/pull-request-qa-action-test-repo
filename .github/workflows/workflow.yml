@@ -10,7 +10,6 @@ jobs:
   triage:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/labeler@v4
+      - uses: andymckay/labeler@1.0.4
         with:
           add-labels: "Ready for review"
-          repo-token: "${{ secrets.GITHUB_TOKEN }}"
