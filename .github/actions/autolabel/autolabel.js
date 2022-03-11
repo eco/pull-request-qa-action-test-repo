@@ -1,16 +1,26 @@
-// import * as core from "@actions/core";
-// import * as github from "@actions/github";
-// import * as yaml from "js-yaml";
-
 const core = require('@actions/core');
 const github = require('@actions/github');
 
 try {
-    // `who-to-greet` input defined in action metadata file
-    const nameToGreet = core.getInput('who-to-greet');
-    console.log(`Hello ${nameToGreet}!`);
-    const time = (new Date()).toTimeString();
-    core.setOutput("time", time);
+    const token = core.getInput("repo-token", { required: true });
+
+    const client: ClientType = github.getOctokit(token);
+
+    const pullRequest = github.context.payload.pull_request;
+
+    const { data: pullRequest } = await client.rest.pulls.get({
+        owner: github.context.repo.owner,
+        repo: github.context.repo.repo,
+        pull_number: pullRequest.number,
+    });
+
+    await client.rest.issues.addLabels({
+        owner: github.context.repo.owner,
+        repo: github.context.repo.repo,
+        issue_number: pullRequest.number,
+        labels: labels,
+    });
+
     // Get the JSON webhook payload for the event that triggered the workflow
     const payload = JSON.stringify(github.context.payload, undefined, 2)
     console.log(`The event payload: ${payload}`);

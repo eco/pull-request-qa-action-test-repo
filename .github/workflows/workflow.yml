@@ -1,19 +1,16 @@
-on: [push]
+name: "Pull Request Labeler"
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - ready_for_review
 
 jobs:
-  hello_world_job:
+  triage:
     runs-on: ubuntu-latest
-    name: A job to say hello
     steps:
-      # To use this repository's private action,
-      # you must check out the repository
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Hello world action step
-        uses: ./.github/actions/autolabel/
-        id: hello
+      - uses: actions/labeler@v4
         with:
-          who-to-greet: 'Mona the Octocat, Github'
-      # Use the output from the `hello` step
-      - name: Get the output time
-        run: echo "The time was ${{ steps.hello.outputs.time }}"
+          add-labels: "Ready for review"
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
