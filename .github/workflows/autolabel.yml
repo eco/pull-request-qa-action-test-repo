@@ -34,7 +34,7 @@ jobs:
         sync-labels: true
         
   closed:
-    if: github.event.pull_request.closed == true
+    if: github.event.action == 'closed' 
     runs-on: ubuntu-latest
     steps:
     - uses: actions/labeler@v4
