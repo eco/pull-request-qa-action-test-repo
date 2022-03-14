@@ -24,7 +24,7 @@ jobs:
         sync-labels: true
 
   work_in_progress:
-    if: github.event.pull_request.draft == true && github.event.pull_request_target.merged == false
+    if: github.event.pull_request.draft == true && github.event.pull_request_target.merged == false && github.event.action != 'closed'
     runs-on: ubuntu-latest
     steps:
     - uses: actions/labeler@v4
@@ -44,7 +44,7 @@ jobs:
         sync-labels: true
         
   approved:
-    if: github.event.pull_request_review.state == 'submitted' && github.event.review.state == 'approved' && github.event.pull_request_target.merged == false
+    if: github.event.pull_request_review.state == 'submitted' && github.event.review.state == 'approved' && github.event.pull_request_target.merged == false && github.event.action != 'closed'
     runs-on: ubuntu-latest
     steps:
     - uses: actions/labeler@v4
