@@ -1,0 +1,59 @@
+name: "Autolabel"
+on:
+  - pull_request_target:
+    types:
+        - opened
+        - reopened
+        - ready_for_review
+        - converted_to_draft
+        - closed
+  - pull_request_review:
+    types:
+        - submitted
+    
+
+jobs:
+  ready-for-review:
+    if: github.event.pull_request_target.ready_for_review == true
+    if: github.event.review.state == 'pending'
+    if: github.event.pull_request_target.merged == false
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/labeler@v4
+      with:
+        repo-token: "${{ secrets.GITHUB_TOKEN }}"
+        configuration-path: "./github/workflows/autolabel/ready_for_review.yml"
+        sync-labels: true
+
+  work_in_progress:
+    if: github.event.pull_request_target.converted_to_draft == true
+    if: github.event.pull_request_target.merged == false
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/labeler@v4
+      with:
+        repo-token: "${{ secrets.GITHUB_TOKEN }}"
+        configuration-path: "./github/workflows/autolabel/work_in_progress.yml"
+        sync-labels: true
+        
+  closed:
+    if: github.event.pull_request_target.merged == true
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/labeler@v4
+      with:
+        repo-token: "${{ secrets.GITHUB_TOKEN }}"
+        configuration-path: "./github/workflows/autolabel/closed.yml"
+        sync-labels: true
+        
+  approved:
+    if: github.event.pull_request_review.state == 'submitted'
+    if: github.event.review.state == 'approved'
+    if: github.event.pull_request_target.merged == false
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/labeler@v4
+      with:
+        repo-token: "${{ secrets.GITHUB_TOKEN }}"
+        configuration-path: "./github/workflows/autolabel/approved.yml"
+        sync-labels: true
