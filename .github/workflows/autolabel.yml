@@ -34,7 +34,6 @@ jobs:
         sync-labels: true
         
   closed:
-    if: github.event.pull_request_target.merged == true
     runs-on: ubuntu-latest
     steps:
     - uses: actions/labeler@v4
