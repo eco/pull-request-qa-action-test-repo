@@ -21,7 +21,6 @@ jobs:
       with:
         repo-token: "${{ secrets.GITHUB_TOKEN }}"
         configuration-path: ".github/workflows/autolabel/ready_for_review.yml"
-        sync-labels: true
 
   work_in_progress:
     if: github.event.pull_request.draft == true && github.event.pull_request_target.merged == false
@@ -31,7 +30,6 @@ jobs:
       with:
         repo-token: "${{ secrets.GITHUB_TOKEN }}"
         configuration-path: ".github/workflows/autolabel/work_in_progress.yml"
-        sync-labels: true
         
   closed:
     if: github.event.pull_request_target.merged == true
@@ -41,7 +39,6 @@ jobs:
       with:
         repo-token: "${{ secrets.GITHUB_TOKEN }}"
         configuration-path: ".github/workflows/autolabel/closed.yml"
-        sync-labels: true
         
   approved:
     if: github.event.pull_request_review.state == 'submitted' && github.event.review.state == 'approved' && github.event.pull_request_target.merged == false
@@ -51,4 +48,3 @@ jobs:
       with:
         repo-token: "${{ secrets.GITHUB_TOKEN }}"
         configuration-path: ".github/workflows/autolabel/approved.yml"
-        sync-labels: true
