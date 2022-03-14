@@ -1,8 +1,5 @@
-ready-for-review:
+readyForReview:
 - '*'
 
-Ready for review:
-- '*'
-
-Work in progress:
+workInProgress:
 - '*'
