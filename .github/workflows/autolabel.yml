@@ -20,7 +20,7 @@ jobs:
     - uses: actions/labeler@v4
       with:
         repo-token: "${{ secrets.GITHUB_TOKEN }}"
-        configuration-path: "./github/workflows/autolabel/ready_for_review.yml"
+        configuration-path: "./.github/workflows/autolabel/ready_for_review.yml"
         sync-labels: true
 
   work_in_progress:
@@ -30,7 +30,7 @@ jobs:
     - uses: actions/labeler@v4
       with:
         repo-token: "${{ secrets.GITHUB_TOKEN }}"
-        configuration-path: "./github/workflows/autolabel/work_in_progress.yml"
+        configuration-path: "./.github/workflows/autolabel/work_in_progress.yml"
         sync-labels: true
         
   closed:
@@ -40,7 +40,7 @@ jobs:
     - uses: actions/labeler@v4
       with:
         repo-token: "${{ secrets.GITHUB_TOKEN }}"
-        configuration-path: "./github/workflows/autolabel/closed.yml"
+        configuration-path: "./.github/workflows/autolabel/closed.yml"
         sync-labels: true
         
   approved:
@@ -50,5 +50,5 @@ jobs:
     - uses: actions/labeler@v4
       with:
         repo-token: "${{ secrets.GITHUB_TOKEN }}"
-        configuration-path: "./github/workflows/autolabel/approved.yml"
+        configuration-path: "./.github/workflows/autolabel/approved.yml"
         sync-labels: true
