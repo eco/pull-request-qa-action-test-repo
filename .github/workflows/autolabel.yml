@@ -14,7 +14,7 @@ on:
 
 jobs:
   ready-for-review:
-    if: github.event.review.state != 'approved' && github.event.pull_request.merged == false && github.event.pull_request.draft == false
+    if: github.event.review.state != 'approved' && github.event.pull_request.merged == false && github.event.pull_request.draft == false && github.event.action != 'closed'
     runs-on: ubuntu-latest
     steps:
     - uses: actions/labeler@v4
@@ -34,7 +34,7 @@ jobs:
         sync-labels: true
         
   closed:
-    if: github.event.action == 'closed' 
+    if: github.event.action == 'closed'
     runs-on: ubuntu-latest
     steps:
     - uses: actions/labeler@v4
