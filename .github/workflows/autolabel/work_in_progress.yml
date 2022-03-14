@@ -1,11 +1,11 @@
 'Ready for review':
-- 'does_not_exist'
+- '!*'
 
 'Work in progress':
 - '*'
 
 'Review passed':
-- 'does_not_exist'
+- '!*'
 
 'Ready for QA':
-- 'does_not_exist'
+- '!*'
