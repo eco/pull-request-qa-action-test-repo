@@ -1,0 +1,20 @@
+name: "Autolabel"
+on:
+  pull_request_target:
+    types:
+        - opened
+        - reopened
+        - converted_to_draft
+    
+
+jobs:
+  draft:
+    name: "Work in progress"
+    if: github.event.pull_request.draft == true && github.event.pull_request_target.merged == false && github.event.action != 'closed'
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/labeler@v4
+      with:
+        repo-token: "${{ secrets.GITHUB_TOKEN }}"
+        configuration-path: ".github/workflows/autolabel/work_in_progress.yml"
+        sync-labels: true

@@ -1,0 +1,24 @@
+name: "Autolabel"
+on:
+  pull_request_target:
+    types:
+        - opened
+        - reopened
+        - ready_for_review
+        - converted_to_draft
+        - closed
+  pull_request_review:
+    types:
+        - submitted
+    
+
+jobs:
+  approved:
+    if: github.event.review.state == 'approved' && github.event.pull_request_target.merged == false && github.event.action != 'closed' && github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/labeler@v4
+      with:
+        repo-token: "${{ secrets.GITHUB_TOKEN }}"
+        configuration-path: ".github/workflows/autolabel/approved.yml"
+        sync-labels: true
