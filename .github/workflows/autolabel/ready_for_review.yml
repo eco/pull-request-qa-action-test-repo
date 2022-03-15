@@ -9,9 +9,3 @@
 
 'Ready for QA':
 - '!*'
-
-'QA passed':
-- '!*'
-
-'In QA':
-- '!*'
