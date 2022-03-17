@@ -15,34 +15,8 @@ jobs:
   autolabel:
     runs-on: ubuntu-latest
     steps:
-      - name: "Ready for review"
-        uses: actions/labeler@v4
-        if: github.event.review.state != 'approved' && github.event.pull_request.merged == false && github.event.pull_request.draft == false && github.event.action != 'closed'
+      - name: "Autolabel"
+        uses: bswaidner/EcoLabeler@master
         with:
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
-          configuration-path: ".github/workflows/autolabel/ready_for_review.yml"
-          sync-labels: true
 
-      - name: "Approved"
-        uses: actions/labeler@v4
-        if: github.event.review.state == 'approved' && github.event.pull_request_target.merged == false && github.event.action != 'closed' && github.event.pull_request.draft == false
-        with:
-          repo-token: "${{ secrets.GITHUB_TOKEN }}"
-          configuration-path: ".github/workflows/autolabel/approved.yml"
-          sync-labels: true
-
-      - name: "Closed"
-        uses: actions/labeler@v4
-        if: github.event.action == 'closed'
-        with:
-          repo-token: "${{ secrets.GITHUB_TOKEN }}"
-          configuration-path: ".github/workflows/autolabel/closed.yml"
-          sync-labels: true
-
-      - name: "Work in progress"
-        uses: actions/labeler@v4
-        if: github.event.pull_request.draft == true && github.event.pull_request_target.merged == false && github.event.action != 'closed'
-        with:
-          repo-token: "${{ secrets.GITHUB_TOKEN }}"
-          configuration-path: ".github/workflows/autolabel/work_in_progress.yml"
-          sync-labels: true
