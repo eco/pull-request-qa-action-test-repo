@@ -16,6 +16,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: "Autolabel"
-        uses: bswaidner/EcoLabeler@master
+        uses: bswaidner/EcoLabeler@v1
         with:
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
