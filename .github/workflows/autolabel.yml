@@ -19,4 +19,5 @@ jobs:
         uses: bswaidner/EcoLabeler@master
         with:
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
+          event: github.event
 
