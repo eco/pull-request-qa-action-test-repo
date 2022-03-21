@@ -10,4 +10,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: "Ready for QA"
-      run: echo "Success"
+        run: echo "Success"
