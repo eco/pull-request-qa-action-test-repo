@@ -1,0 +1,13 @@
+name: "slack-bot"
+on:
+  pull_request_target:
+    types: [labeled]
+
+jobs:
+  ready-for-qa:
+    name: "Update slack"
+    if: github.event.label.name == 'Ready for QA'
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Ready for QA"
+      run: echo "Success"
