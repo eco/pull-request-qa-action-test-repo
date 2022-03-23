@@ -16,6 +16,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: "Autolabel"
-        uses: bswaidner/autolabel@v1.1.0
+        uses: bswaidner/autolabel@master
         with:
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
