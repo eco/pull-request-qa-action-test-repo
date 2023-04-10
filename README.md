@@ -1,4 +1,4 @@
-# pull-request-qa-action-test-repo
+# Pull Request QA Action Test Repo
 Playground for testing changes for eco/pull-request-qa-action
 
 ## Testing changes
