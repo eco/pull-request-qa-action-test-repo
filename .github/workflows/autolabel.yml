@@ -1,21 +1,29 @@
-name: "Autolabel"
+name: "Pull Request Action"
 on:
   pull_request_target:
-    types:
-        - opened
-        - reopened
-        - ready_for_review
-        - converted_to_draft
-        - closed
+    types: [opened, reopened, ready_for_review, converted_to_draft, closed, synchronize, labeled]
   pull_request_review:
-    types:
-        - submitted
-    
+    types: [submitted, dismissed]
+
+env:
+  JIRA_PR_APPROVED_WEBHOOK: "https://automation.atlassian.com/pro/hooks/af123ee4419f2210152023198fe1e985f941746a"
+  JIRA_READY_FOR_REVIEW: "https://automation.atlassian.com/pro/hooks/af123ee4419f2210152023198fe1e985f941746a"
+  JIRA_IN_QA_WEBHOOK: 'https://automation.atlassian.com/pro/hooks/af123ee4419f2210152023198fe1e985f941746a'
+  JIRA_QA_PASSED_WEBHOOK: "https://automation.atlassian.com/pro/hooks/af123ee4419f2210152023198fe1e985f941746a"
+  JIRA_PR_MERGED_WEBHOOK: "https://automation.atlassian.com/pro/hooks/af123ee4419f2210152023198fe1e985f941746a"
+  JIRA_DESIGN_REVIEW_WEBHOOK: "xhttps://automation.atlassian.com/pro/hooks/af123ee4419f2210152023198fe1e985f941746a"
+  
 jobs:
-  autolabel:
+  QA:
     runs-on: ubuntu-latest
     steps:
-      - name: "Autolabel"
-        uses: bswaidner/autolabel@master
+      - name: "Pull Request QA"
+        uses: eco/pull-request-qa-action@v1-debug
         with:
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
+          WH_PR_APPROVED: "${{ env.JIRA_PR_APPROVED_WEBHOOK }}"
+          WH_READY_FOR_REVIEW: "${{ env.JIRA_READY_FOR_REVIEW }}"
+          WH_IN_QA: "${{ env.JIRA_IN_QA_WEBHOOK }}"
+          WH_QA_PASSED: "${{ env.JIRA_QA_PASSED_WEBHOOK }}"
+          WH_PR_MERGED: "${{ env.JIRA_PR_MERGED_WEBHOOK }}"
+          WH_DESIGN_REVIEW: "${{ env.JIRA_DESIGN_REVIEW_WEBHOOK }}"
